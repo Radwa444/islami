@@ -1,46 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:islami/provider.dart';
 import 'package:islami/ui/Home_screen.dart';
 import 'package:islami/ui/Home/quran_tap/NameSura.dart';
 import 'package:islami/ui/Home/hadeth_tap/Hadeth.dart';
-
+import 'package:islami/ui/MyThemeData.dart';
+import 'package:islami/ui/splash_screen.dart';
+import 'package:provider/provider.dart';
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(create: (BuildContext) =>changeTheme(),child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+    var provider =Provider.of<changeTheme>(context);
     return MaterialApp(
       routes: {
         Home_Screen.routeName: (BuildContext) => Home_Screen(),
         NameSura.routName: (BuildContext) => NameSura(),
         Hadeth.routName: (BuildContext) => Hadeth(),
+        Splash_screen.routeName:(BuildContext)=> Splash_screen(),
       },
       initialRoute: Home_Screen.routeName,
-      theme: ThemeData(
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Color(0xFFB7935F)) ,)),
-          iconTheme: IconThemeData(color: Colors.black),
-          progressIndicatorTheme:
-              ProgressIndicatorThemeData(color: Color(0xFFB7935F)),
-          primaryColor: Color(0xFFB7935F),
-          scaffoldBackgroundColor: Colors.transparent,
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              selectedItemColor: Colors.black,
-              unselectedItemColor: Colors.white),
-          appBarTheme: AppBarTheme(
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            titleTextStyle: TextStyle(
-                fontSize: 35,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'ElMessiri'),
-            centerTitle: true,
-          )),
+      theme: MyThemeData.LigthTheme,
+      darkTheme: MyThemeData.DarkTheme,
+      themeMode: provider.themeData,
     );
   }
 }

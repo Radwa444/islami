@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:islami/ui/MyThemeData.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider.dart';
 
 class sebha_screen extends StatefulWidget {
   @override
@@ -9,14 +13,15 @@ class _sebha_screenState extends State<sebha_screen> {
   int number = 0;
   @override
   Widget build(BuildContext context) {
+    var provider =Provider.of<changeTheme>(context);
     return Scaffold(
       body: Center(
           child: Column(
         children: [
           Stack(
             children: [
-              Center(
-                  child: Container(
+              const Center(
+                  child: SizedBox(
                 width: 200,
                 height: 350,
               )),
@@ -24,25 +29,25 @@ class _sebha_screenState extends State<sebha_screen> {
                   top: 30,
                   right: 150,
                   child:
-                      Image(image: AssetImage('assets/head_sebha_logo.png'))),
+                      Image(image: AssetImage(provider.themeData==ThemeMode.light?
+                          'assets/head_sebha_logo.png':'assets/head_sebha_dark.png'))),
               Positioned(
                   top: 110,
                   right: 90,
-                  child: Image(image: AssetImage('assets/body_sebha_logo.png')))
+                  child: Image(image: AssetImage(provider.themeData==ThemeMode.light?
+                      'assets/body_sebha_logo.png':'assets/body_sebha_dark.png')))
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
             'عدد التسبيحات',
-            style: TextStyle(
-              fontSize: 33,
-            ),
+            style:Theme.of(context).textTheme.bodyText1,
             textAlign: TextAlign.center,
           ),
           Card( elevation: 10,
-            color: Theme.of(context).primaryColor,
+
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Container(
@@ -52,7 +57,7 @@ class _sebha_screenState extends State<sebha_screen> {
               child: Center(
                   child: Text(
                 '$number',
-                style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodyText1,
               )),
             ),
           ),SizedBox(height: 20,),
@@ -60,7 +65,7 @@ class _sebha_screenState extends State<sebha_screen> {
 
           });},child: Text(
             'سبحان الله',
-            style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.bodyText1,
           ))
         ],
       )),
