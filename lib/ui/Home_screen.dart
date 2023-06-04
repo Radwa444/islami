@@ -3,6 +3,8 @@ import 'package:islami/ui/Home/radio_tap/radio_screen.dart';
 import 'package:islami/ui/Home/sebha_tap/sebha_screen.dart';
 import 'package:islami/ui/Home/quran_tap/quran_screen.dart';
 import 'package:islami/ui/Home/hadeth_tap/hadeth_screen.dart';
+import 'package:islami/ui/MyThemeData.dart';
+
 class Home_Screen extends StatefulWidget {
   static const String routeName = 'home';
 
@@ -11,10 +13,9 @@ class Home_Screen extends StatefulWidget {
 }
 
 class _Home_ScreenState extends State<Home_Screen> {
-  int selectTap=0;
+  int selectTap = 0;
 
   @override
-
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
@@ -22,30 +23,35 @@ class _Home_ScreenState extends State<Home_Screen> {
         height: double.infinity,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/default_bg.png'), fit: BoxFit.fill)),
+                image: AssetImage(MyThemeData.themeMode == ThemeMode.light
+                    ? 'assets/default_bg.png'
+                    : 'assets/dark_bg.png'),
+                fit: BoxFit.fill)),
         child: Scaffold(
           bottomNavigationBar: BottomNavigationBar(
-           currentIndex: selectTap,
-            onTap:(index) {
-
-             setState(() {
-                  selectTap=index;
-             });
+            currentIndex: selectTap,
+            onTap: (index) {
+              setState(() {
+                selectTap = index;
+              });
             },
-
             items: [
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).primaryColor,
-                  icon: ImageIcon(AssetImage('assets/icon_radio.png')),label: 'radio'),
+                  backgroundColor: Theme.of(context).cardColor,
+                  icon: ImageIcon(AssetImage('assets/icon_radio.png')),
+                  label: 'radio'),
               BottomNavigationBarItem(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  icon: ImageIcon(AssetImage('assets/icon_sebha.png')),label: 'sebha'),
+                  backgroundColor: Theme.of(context).cardColor,
+                  icon: ImageIcon(AssetImage('assets/icon_sebha.png')),
+                  label: 'sebha'),
               BottomNavigationBarItem(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  icon: ImageIcon(AssetImage('assets/icon_hadeth.png')),label: 'hedeth'),
+                  backgroundColor: Theme.of(context).cardColor,
+                  icon: ImageIcon(AssetImage('assets/icon_hadeth.png')),
+                  label: 'hedeth'),
               BottomNavigationBarItem(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  icon: ImageIcon(AssetImage('assets/icon_quran.png')),label: 'quran'),
+                  backgroundColor: Theme.of(context).cardColor,
+                  icon: ImageIcon(AssetImage('assets/icon_quran.png')),
+                  label: 'quran'),
             ],
           ),
           appBar: AppBar(
@@ -58,5 +64,11 @@ class _Home_ScreenState extends State<Home_Screen> {
       ),
     );
   }
-  List<Widget> Tap=[radio_screen(),sebha_screen(),hadeth_screen(),quran_screen()];
+
+  List<Widget> Tap = [
+    radio_screen(),
+    sebha_screen(),
+    hadeth_screen(),
+    quran_screen()
+  ];
 }
