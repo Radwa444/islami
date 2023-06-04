@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami/ui/Home/hadeth_tap/body_hadeth.dart';
+import 'package:islami/ui/MyThemeData.dart';
+
 class Hadeth extends StatefulWidget {
   static const String routName = 'hadeth';
 
@@ -12,7 +14,7 @@ class _HadethState extends State<Hadeth> {
   List<String> group = [];
 
   String read = '';
-  String title='';
+  String title = '';
   @override
   Widget build(BuildContext context) {
     int red = ModalRoute.of(context)?.settings.arguments as int;
@@ -27,7 +29,10 @@ class _HadethState extends State<Hadeth> {
         height: double.infinity,
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/default_bg.png'), fit: BoxFit.fill)),
+                image: AssetImage(MyThemeData.themeMode == ThemeMode.light
+                    ? 'assets/default_bg.png'
+                    : 'assets/dark_bg.png'),
+                fit: BoxFit.fill)),
         child: Scaffold(
           appBar: AppBar(
             title: Text(
@@ -38,6 +43,9 @@ class _HadethState extends State<Hadeth> {
             children: [
               Expanded(
                 child: Card(
+                  color: MyThemeData.themeMode == ThemeMode.light
+                      ? Colors.white
+                      : Theme.of(context).cardColor,
                   elevation: 12,
                   margin: EdgeInsets.symmetric(horizontal: 15, vertical: 50),
                   shape: RoundedRectangleBorder(
@@ -59,10 +67,10 @@ class _HadethState extends State<Hadeth> {
   void readHadeth(int index) async {
     String text = await rootBundle.loadString("assets/hadeth/h$index.txt");
     group = text.trim().split('\n');
-    title=group[0];
+    title = group[0];
     print(title);
     group.removeAt(0);
-    read=group.join();
+    read = group.join();
     setState(() {});
   }
 }
