@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami/ui/Home/quran_tap/StyleAyaat.dart';
+import 'package:islami/ui/MyThemeData.dart';
 
 class NameSura extends StatefulWidget {
   static const String routName = 'SURA';
@@ -12,7 +13,6 @@ class NameSura extends StatefulWidget {
 class _NameSuraState extends State<NameSura> {
   List<String> Ayaat = [];
 
-
   @override
   Widget build(BuildContext context) {
     var ard = ModalRoute.of(context)?.settings.arguments as NameSuraAndnumber;
@@ -22,12 +22,14 @@ class _NameSuraState extends State<NameSura> {
     // group += Ayaat[ard.number];
     return SafeArea(
       child: Container(
-
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/default_bg.png'), fit: BoxFit.fill),
+              image: AssetImage(MyThemeData.themeMode == ThemeMode.light
+                  ? 'assets/default_bg.png'
+                  : 'assets/dark_bg.png'),
+              fit: BoxFit.fill),
         ),
         child: Scaffold(
             appBar: AppBar(
@@ -38,6 +40,9 @@ class _NameSuraState extends State<NameSura> {
                 children: [
                   Expanded(
                     child: Card(
+                      color: MyThemeData.themeMode == ThemeMode.light
+                          ? Colors.white
+                          : Theme.of(context).cardColor,
                       elevation: 12,
                       margin:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 50),
@@ -46,13 +51,13 @@ class _NameSuraState extends State<NameSura> {
                       child: Ayaat.isEmpty
                           ? Center(child: CircularProgressIndicator())
                           : ListView.separated(
-                              itemCount: Ayaat.length-1,
+                              itemCount: Ayaat.length - 1,
                               itemBuilder: (BuildContext, index) {
-                                return StyleAyaat(Ayaat[index], index +1);
+                                return StyleAyaat(Ayaat[index], index + 1);
                               },
                               separatorBuilder: (context, index) {
                                 return Container(
-                                  padding: EdgeInsets.only(left: 20,right: 20),
+                                  padding: EdgeInsets.only(left: 20, right: 20),
                                   margin: EdgeInsets.all(20),
                                   width: double.infinity,
                                   height: 3,
@@ -76,10 +81,7 @@ class _NameSuraState extends State<NameSura> {
 
     setState(() {});
   }
-
-
-  }
-
+}
 
 class NameSuraAndnumber {
   String name;
