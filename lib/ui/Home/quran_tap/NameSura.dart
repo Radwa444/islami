@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami/ui/Home/quran_tap/StyleAyaat.dart';
 import 'package:islami/ui/MyThemeData.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider.dart';
 
 class NameSura extends StatefulWidget {
   static const String routName = 'SURA';
@@ -15,6 +18,7 @@ class _NameSuraState extends State<NameSura> {
 
   @override
   Widget build(BuildContext context) {
+    var provider =Provider.of<changeTheme>(context);
     var ard = ModalRoute.of(context)?.settings.arguments as NameSuraAndnumber;
 
     if (Ayaat.isEmpty) //So that it doesn't happen loop
@@ -26,7 +30,7 @@ class _NameSuraState extends State<NameSura> {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(MyThemeData.themeMode == ThemeMode.light
+              image: AssetImage(provider.themeData==ThemeMode.light
                   ? 'assets/default_bg.png'
                   : 'assets/dark_bg.png'),
               fit: BoxFit.fill),
@@ -40,7 +44,7 @@ class _NameSuraState extends State<NameSura> {
                 children: [
                   Expanded(
                     child: Card(
-                      color: MyThemeData.themeMode == ThemeMode.light
+                      color: provider.themeData==ThemeMode.light
                           ? Colors.white
                           : Theme.of(context).cardColor,
                       elevation: 12,
